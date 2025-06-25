@@ -28,19 +28,16 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/", // root
-                                "/api/auth/**",
-                                "/api/reminders",
-                                "/api/reminders/",
-                                "/api/reminders/**", // include upcoming, etc.
-                                "/error" // Render sometimes hits this
+                                "/",
+                                "/api/auth/**",  // ✅ Auth endpoints
+                                "/error"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder() {
