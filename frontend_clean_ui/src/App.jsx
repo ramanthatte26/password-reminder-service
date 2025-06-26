@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import AddReminder from "./pages/AddReminder";
@@ -10,27 +10,34 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const location = useLocation();
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
-  }, []);
+    // Keep token in sync with localStorage when location changes (e.g. after login/logout)
+    const storedToken = localStorage.getItem("token");
+    if (storedToken !== token) {
+      setToken(storedToken);
+    }
+  }, [location]);
 
+  // 🔒 Wrapper for protected pages
   const ProtectedRoute = ({ children }) => {
-    if (!token) return <Navigate to="/login" replace />;
-    return children;
+    return token ? children : <Navigate to="/login" replace />;
   };
 
   return (
     <>
       <Navbar token={token} setToken={setToken} />
       <Routes>
-        {/* 👇 Redirect root route to /login */}
+        {/* 🔁 Redirect root to login */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
+        {/* Public routes */}
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register setToken={setToken} />} />
 
+        {/* Protected routes */}
         <Route
           path="/home"
           element={
@@ -63,6 +70,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        {/* Not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
