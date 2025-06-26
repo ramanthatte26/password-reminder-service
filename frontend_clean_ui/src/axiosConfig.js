@@ -1,11 +1,10 @@
-// src/axiosConfig.js
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080/api", // your API base
+  baseURL: import.meta.env.VITE_API_BASE_URL, // dynamically set from .env
 });
 
-// ✅ Add Authorization header to every request
+// ✅ Add Authorization header if token exists
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
