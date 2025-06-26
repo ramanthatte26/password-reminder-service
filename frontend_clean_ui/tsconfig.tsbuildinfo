@@ -1,0 +1,1 @@
+{"root":["./src/app.jsx","./src/axiosconfig.js","./src/main.jsx","./src/components/navbar.jsx","./src/pages/addreminder.jsx","./src/pages/editreminder.jsx","./src/pages/home.jsx","./src/pages/landing.jsx","./src/pages/login.jsx","./src/pages/notfound.jsx","./src/pages/register.jsx","./src/pages/upcoming.jsx"],"version":"5.8.3"}

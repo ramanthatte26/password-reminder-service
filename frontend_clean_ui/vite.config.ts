@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: './', // Ensures relative paths in build
+  base: '/', // ✅ absolute base for routing to work on host like Render/Vercel
   build: {
     outDir: 'dist',
     emptyOutDir: true
