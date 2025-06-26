@@ -14,14 +14,12 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
-    // Keep token in sync with localStorage when location changes (e.g. after login/logout)
     const storedToken = localStorage.getItem("token");
     if (storedToken !== token) {
       setToken(storedToken);
     }
   }, [location]);
 
-  // 🔒 Wrapper for protected pages
   const ProtectedRoute = ({ children }) => {
     return token ? children : <Navigate to="/login" replace />;
   };
@@ -30,14 +28,10 @@ function App() {
     <>
       <Navbar token={token} setToken={setToken} />
       <Routes>
-        {/* 🔁 Redirect root to login */}
-        <Route path="/" element={<Navigate to="/login" replace />} />
-
-        {/* Public routes */}
+        <Route path="/" element={<Navigate to={token ? "/home" : "/login"} replace />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
         <Route path="/register" element={<Register setToken={setToken} />} />
 
-        {/* Protected routes */}
         <Route
           path="/home"
           element={
@@ -70,8 +64,6 @@ function App() {
             </ProtectedRoute>
           }
         />
-
-        {/* Not found */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

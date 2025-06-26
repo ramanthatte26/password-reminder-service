@@ -17,9 +17,12 @@ function Navbar({ token, setToken }) {
   };
 
   return (
-    <nav className="bg-gray-100 shadow-md">
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <Link className="text-xl font-bold text-blue-700" to="/">
+    <nav className="bg-blue-600 text-white shadow-md">
+      <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+        <Link
+          to={token ? "/home" : "/login"}
+          className="text-xl font-bold hover:text-white"
+        >
           🔐 Reminder Service
         </Link>
 
@@ -33,37 +36,31 @@ function Navbar({ token, setToken }) {
         </button>
 
         {/* Desktop Menu */}
-        <div className="hidden lg:flex space-x-4 items-center">
+        <div className="hidden lg:flex gap-4 items-center">
           {token ? (
             <>
-              <Link to="/home" className="text-gray-800 hover:text-blue-600">
+              <Link to="/home" className="hover:text-gray-200">
                 Home
               </Link>
-              <Link to="/create" className="text-gray-800 hover:text-blue-600">
+              <Link to="/create" className="hover:text-gray-200">
                 Add
               </Link>
-              <Link to="/upcoming" className="text-gray-800 hover:text-blue-600">
+              <Link to="/upcoming" className="hover:text-gray-200">
                 Upcoming
               </Link>
               <button
                 onClick={handleLogout}
-                className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                className="bg-yellow-400 hover:bg-yellow-500 text-black px-3 py-1 rounded"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-              >
+              <Link to="/login" className="bg-green-500 hover:bg-green-600 px-3 py-1 rounded">
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-              >
+              <Link to="/register" className="bg-white text-blue-600 hover:bg-gray-100 px-3 py-1 rounded">
                 Register
               </Link>
             </>
@@ -73,44 +70,26 @@ function Navbar({ token, setToken }) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="lg:hidden px-4 pb-4 space-y-2">
+        <div className="lg:hidden px-4 pb-4 space-y-2 bg-blue-100 text-black">
           {token ? (
             <>
-              <Link to="/home" className="block text-gray-800 hover:text-blue-600" onClick={toggleMenu}>
-                Home
-              </Link>
-              <Link to="/create" className="block text-gray-800 hover:text-blue-600" onClick={toggleMenu}>
-                Add
-              </Link>
-              <Link to="/upcoming" className="block text-gray-800 hover:text-blue-600" onClick={toggleMenu}>
-                Upcoming
-              </Link>
+              <Link to="/home" onClick={toggleMenu}>Home</Link>
+              <Link to="/create" onClick={toggleMenu}>Add</Link>
+              <Link to="/upcoming" onClick={toggleMenu}>Upcoming</Link>
               <button
                 onClick={() => {
                   handleLogout();
                   toggleMenu();
                 }}
-                className="block w-full bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                className="w-full bg-red-500 text-white py-1 rounded"
               >
                 Logout
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="block w-full bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-                onClick={toggleMenu}
-              >
-                Login
-              </Link>
-              <Link
-                to="/register"
-                className="block w-full bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
-                onClick={toggleMenu}
-              >
-                Register
-              </Link>
+              <Link to="/login" onClick={toggleMenu}>Login</Link>
+              <Link to="/register" onClick={toggleMenu}>Register</Link>
             </>
           )}
         </div>

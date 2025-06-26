@@ -1,163 +1,190 @@
-/* 🌐 Global Reset */
+/* 1. Global Reset & Fonts */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  margin: 0; padding: 0; box-sizing: border-box;
 }
-
-/* 🧠 Typography & Base */
 body {
-  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #f6f9fc, #e9f1ff);
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e9f2fd);
   color: #2e3a59;
   line-height: 1.6;
-  padding: 1rem;
+  min-height: 100vh;
 }
-
-/* 🔳 Page Container */
 .page-container {
   max-width: 960px;
   margin: 2rem auto;
   padding: 2.5rem;
-  background: white;
+  background: #fff;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.page-container:hover {
+  transform: translateY(-4px);
 }
 
-/* 🧭 Header */
+/* 2. Heading & Typography */
 h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
   text-align: center;
-  margin-bottom: 2rem;
-  font-weight: 800;
+  margin-bottom: 1.5rem;
   color: #1c1f3b;
+  font-weight: 800;
 }
 
-/* 🧾 Form Styling */
+/* 3. Forms & Inputs */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.3rem;
+  gap: 1.2rem;
 }
-
 form label {
   font-weight: 600;
   color: #444;
 }
-
 form input {
-  padding: 0.9rem 1rem;
+  padding: 0.8rem 1rem;
   border: 2px solid #dee2e6;
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.2s ease;
 }
-
 form input:focus {
   border-color: #6c63ff;
   outline: none;
   box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
 }
 
-/* 🖱️ Buttons */
-button,
-.btn {
+/* 4. Buttons */
+button, .btn {
   padding: 0.7rem 1.4rem;
   font-size: 1rem;
   font-weight: 600;
   border-radius: 8px;
-  border: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
   margin: 0.3rem 0.4rem 0.3rem 0;
 }
-
-button:hover,
-.btn:hover {
-  transform: scale(1.03);
+button:hover, .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
 }
-
-/* 🎨 Button Variants */
 .btn-primary {
-  background: linear-gradient(to right, #667eea, #764ba2);
+  background: linear-gradient(90deg, #667eea, #764ba2);
   color: white;
 }
-
-.btn-primary:hover {
-  background: linear-gradient(to right, #5a67d8, #6b46c1);
-}
-
 .btn-success {
-  background: linear-gradient(to right, #28a745, #218838);
-  color: #fff;
+  background: linear-gradient(90deg, #28a745, #218838);
+  color: white;
 }
-
-.btn-success:hover {
-  background: linear-gradient(to right, #218838, #1c7430);
-}
-
 .btn-warning {
-  background: linear-gradient(to right, #ffc107, #ffb300);
+  background: linear-gradient(90deg, #ffc107, #ffb300);
   color: #212529;
 }
 
-.btn-warning:hover {
-  background: linear-gradient(to right, #e0a800, #d39e00);
-}
-
-.btn-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-/* 📋 Table */
+/* 5. Table */
 .reminder-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
 }
-
 .reminder-table th,
 .reminder-table td {
   padding: 1rem;
   border: 1px solid #e0e0e0;
-  text-align: left;
 }
-
 .reminder-table th {
-  background: #f0f4fa;
-  font-weight: bold;
-  color: #2c3e50;
+  background: #f7faff;
+  font-weight: 600;
+}
+.reminder-table tr:nth-child(even) td {
+  background: #fdfdff;
+}
+@media (max-width: 640px) {
+  .reminder-table th, .reminder-table td {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
 }
 
-.reminder-table tr:nth-child(even) {
-  background: #f9fbff;
-}
-
-/* ℹ️ Info Message */
-.info-text {
+/* 6. Messages */
+.info-text,
+.error {
   text-align: center;
-  font-style: italic;
+  margin-top: 1rem;
+}
+.info-text {
   color: #6c757d;
-  margin-top: 2rem;
+  font-style: italic;
+}
+.error {
+  color: #e74c3c;
+  font-size: 0.9rem;
 }
 
-/* 🚫 Empty State */
+/* 7. Navbar */
+.navbar {
+  background: #1b3a8a;
+  padding: 0.8rem 0;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+.nav-container {
+  max-width: 960px;
+  margin: auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.logo {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+.nav-links a,
+.nav-links button {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.8rem;
+}
+.nav-links button {
+  background: transparent;
+  border: 2px solid #fff;
+  padding: 0.4rem 0.8rem;
+}
+.nav-links button:hover,
+.nav-links a:hover {
+  opacity: 0.9;
+}
+
+/* Mobile menu */
+@media (max-width: 768px) {
+  .nav-links {
+    flex-direction: column;
+    width: 100%;
+    display: none;
+    background: #1b3a8a;
+    padding: 1rem 0;
+  }
+  .nav-links.open {
+    display: flex;
+  }
+}
+
+/* 8. Not Found */
 .not-found {
   text-align: center;
   padding: 4rem;
   color: #999;
 }
-
 .not-found a {
-  margin-top: 1.2rem;
+  display: inline-block;
+  margin-top: 1rem;
   padding: 0.7rem 1.4rem;
   background: #6c63ff;
   color: white;
@@ -165,60 +192,5 @@ button:hover,
   text-decoration: none;
 }
 
-.not-found a:hover {
-  background: #5548c8;
-}
-
-/* 📌 Navbar */
-.navbar {
-  background: #0d6efd;
-  padding: 1rem 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.nav-container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.logo {
-  color: white;
-  font-size: 1.25rem;
-  font-weight: bold;
-  text-decoration: none;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-}
-
-.nav-links a.active::after {
-  content: "";
-  display: block;
-  height: 2px;
-  background: white;
-  width: 100%;
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-}
-.error {
-  color: red;
-  font-size: 0.85rem;
-  margin-top: 0.25rem;
-}
-
+/* 9. Debug (optional outline) */
+/* * { outline: 1px dashed rgba(0,0,0,0.1); } */
