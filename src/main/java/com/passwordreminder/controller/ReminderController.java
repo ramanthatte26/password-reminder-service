@@ -31,7 +31,7 @@ public class ReminderController {
     }
 
     @GetMapping("/{id}")
-    public PasswordReminder getReminderById(@PathVariable Long id, Principal principal) {
+    public PasswordReminder getReminderById(@PathVariable("id") Long id, Principal principal) {
         return reminderService.getReminderForUserById(id, principal.getName());
     }
 
@@ -46,14 +46,14 @@ public class ReminderController {
     }
 
     @PutMapping("/{id}")
-    public PasswordReminder updateReminder(@PathVariable Long id,
+    public PasswordReminder updateReminder(@PathVariable("id") Long id,
                                            @RequestBody @Valid PasswordReminder updated,
                                            Principal principal) {
         return reminderService.updateReminder(id, updated, principal.getName());
     }
 
     @DeleteMapping("/{id}")
-    public void deleteReminder(@PathVariable Long id, Principal principal) {
+    public void deleteReminder(@PathVariable("id") Long id, Principal principal) {
         reminderService.deleteReminder(id, principal.getName());
     }
 
