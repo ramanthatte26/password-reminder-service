@@ -44,6 +44,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        System.out.println("🔐 Login endpoint hit"); // Force redeploy log
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not registered"));
 
@@ -52,9 +53,12 @@ public class AuthController {
         }
 
         String token = jwtService.generateToken(user.getEmail());
-
         return ResponseEntity.ok(Map.of("token", token));
     }
-    // Trigger redeploy
 
+    // ✅ Dummy endpoint to trigger redeploy
+    @GetMapping("/ping")
+    public String ping() {
+        return "pong";
+    }
 }
