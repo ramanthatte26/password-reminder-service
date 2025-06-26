@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/reminders")
-@CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
+@CrossOrigin(origins = "https://password-reminder-service-1.onrender.com", allowCredentials = "true")
 @RequiredArgsConstructor
 public class ReminderController {
 

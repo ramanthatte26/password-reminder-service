@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://localhost:5173")  // use the port React runs on
+                        .allowedOriginPatterns("https://password-reminder-service-1.onrender.com")
                         .allowedMethods("*")
                         .allowCredentials(true);
             }
