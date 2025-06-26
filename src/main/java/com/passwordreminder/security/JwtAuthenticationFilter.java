@@ -30,8 +30,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Skip JWT auth for public paths
-        if (path.startsWith("/api/reminders") || path.startsWith("/api/auth") || path.equals("/") || path.equals("/error")) {
+        // ✅ Only skip JWT auth for public endpoints like auth & error
+        if (path.startsWith("/api/auth") || path.equals("/") || path.equals("/error")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -62,5 +62,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
-
 }
