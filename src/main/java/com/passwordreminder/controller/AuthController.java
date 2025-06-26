@@ -30,7 +30,7 @@ public class AuthController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody @Valid User user) {
         if (userService.existsByEmail(user.getEmail())) {
             return ResponseEntity.badRequest().body("⚠️ Email already registered!");
@@ -42,9 +42,10 @@ public class AuthController {
         return ResponseEntity.ok().body(new AuthResponse(token));
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login", consumes = "application/json")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
         System.out.println("🔐 Login endpoint hit"); // Force redeploy log
+
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Email not registered"));
 
