@@ -2,6 +2,7 @@ package com.passwordreminder.service;
 
 import com.passwordreminder.model.PasswordReminder;
 import com.passwordreminder.repository.PasswordReminderRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -37,12 +38,13 @@ public class ReminderService {
         return reminderRepository.save(reminder);
     }
 
+    @Transactional
     public PasswordReminder updateReminder(Long id, PasswordReminder updated, String email) {
         PasswordReminder existing = reminderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+                .orElseThrow(() -> new RuntimeException("Reminder not found with id " + id));
 
         if (!existing.getUserEmail().equalsIgnoreCase(email)) {
-            throw new RuntimeException("Unauthorized update attempt");
+            throw new RuntimeException("Unauthorized update attempt by: " + email);
         }
 
         existing.setAccountName(updated.getAccountName());
@@ -52,23 +54,24 @@ public class ReminderService {
         return reminderRepository.save(existing);
     }
 
+    @Transactional
     public void deleteReminder(Long id, String email) {
         PasswordReminder existing = reminderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+                .orElseThrow(() -> new RuntimeException("Reminder not found with id " + id));
 
         if (!existing.getUserEmail().equalsIgnoreCase(email)) {
-            throw new RuntimeException("Unauthorized delete attempt");
+            throw new RuntimeException("Unauthorized delete attempt by: " + email);
         }
 
-        reminderRepository.deleteById(id);
+        reminderRepository.delete(existing);
     }
 
     public PasswordReminder getReminderForUserById(Long id, String email) {
         PasswordReminder reminder = reminderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+                .orElseThrow(() -> new RuntimeException("Reminder not found with id " + id));
 
         if (!reminder.getUserEmail().equalsIgnoreCase(email)) {
-            throw new RuntimeException("Unauthorized access to reminder");
+            throw new RuntimeException("Unauthorized access attempt by: " + email);
         }
 
         return reminder;
@@ -127,10 +130,10 @@ public class ReminderService {
 
     public PasswordReminder markAsChanged(Long id, String email) {
         PasswordReminder reminder = reminderRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Reminder not found"));
+                .orElseThrow(() -> new RuntimeException("Reminder not found with id " + id));
 
         if (!reminder.getUserEmail().equalsIgnoreCase(email)) {
-            throw new RuntimeException("Unauthorized action");
+            throw new RuntimeException("Unauthorized markAsChanged attempt by: " + email);
         }
 
         reminder.setLastPasswordChangeDate(LocalDate.now());
