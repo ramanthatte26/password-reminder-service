@@ -15,9 +15,7 @@ function App() {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    if (storedToken !== token) {
-      setToken(storedToken);
-    }
+    if (storedToken !== token) setToken(storedToken);
   }, [location]);
 
   const ProtectedRoute = ({ children }) => {
