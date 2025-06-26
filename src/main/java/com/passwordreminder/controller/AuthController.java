@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @CrossOrigin(origins = {
         "http://localhost:5173",
-        "https://password-reminder-service.onrender.com"
+        "https://password-reminder-service-1.onrender.com"
 }, allowCredentials = "true")
 public class AuthController {
 
