@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -19,6 +21,11 @@ public class ReminderService {
 
     private final PasswordReminderRepository reminderRepository;
     private final JavaMailSender mailSender;
+
+    // Confirm JVM timezone on startup
+    static {
+        System.out.println("🕒 JVM Time Zone: " + java.util.TimeZone.getDefault());
+    }
 
     public List<PasswordReminder> getRemindersByEmail(String email) {
         return reminderRepository.findByUserEmailIgnoreCase(email);
@@ -77,17 +84,23 @@ public class ReminderService {
         return reminder;
     }
 
-    @Scheduled(cron = "0 0 9 * * *")
+    // ✅ Scheduled to run at 9 PM IST every day
+    // ✅ Scheduled to run at 10 AM IST every day
+    @Scheduled(cron = "0 0 10 * * *", zone = "Asia/Kolkata")
     public void sendUpcomingEmailsScheduled() {
-        System.out.println("⏰ Scheduler triggered at: " + LocalDateTime.now());
+        System.out.println("⏰ Scheduler triggered at (system time): " + LocalDateTime.now());
+        System.out.println("🕒 Scheduler triggered at (Asia/Kolkata): " +
+                ZonedDateTime.now(ZoneId.of("Asia/Kolkata")));
         sendUpcomingEmails();
     }
 
+
     public void sendUpcomingEmails() {
         System.out.println("📬 Sending upcoming emails...");
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
         reminderRepository.findAll().forEach(r -> {
             LocalDate due = r.getLastPasswordChangeDate().plusDays(r.getChangeIntervalDays());
-            if (due.isEqual(LocalDate.now().plusDays(1))) {
+            if (due.isEqual(tomorrow)) {
                 sendReminderEmail(r.getUserEmail(), List.of(r));
             }
         });
