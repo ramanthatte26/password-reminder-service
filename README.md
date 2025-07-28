@@ -25,8 +25,8 @@ Many people forget to update their passwords, which leaves them vulnerable. This
 ## ⚡ Tech Stack
 
 - **Backend:** Spring Boot (Java)
-- **Frontend:** HTML, CSS, JavaScript (Thymeleaf or React if applicable)
-- **Database:** MySQL (Hosted on FreeSQLDatabase.com)
+- **Frontend:** React + Vite
+- **Database:** MySQL (hosted on [Railway](https://railway.app/))
 - **Email Service:** Spring Mail (SMTP)
 - **Deployment:** Render (Frontend + Backend), FreeSQLDatabase.com (Database)
 
