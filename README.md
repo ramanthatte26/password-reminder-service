@@ -1,109 +1,90 @@
-# 🔐 Password Reminder Service
+# 🔑 Password Reminder Service
 
-A full-stack web application that helps users track when they need to change passwords for different accounts and notifies them when it's time. 
+## 📌 Idea Behind the Project
 
-Built with:
-- ⚙️ Spring Boot (Backend)
-- 🌐 React (Frontend)
-- 📬 Email Notification Support
-- 🔐 JWT-based Authentication
+The **Password Reminder Service** was created with the idea of helping users stay secure by **reminding them to change their passwords regularly**.  
+Many people forget to update their passwords, which leaves them vulnerable. This service automates reminders and makes it easier for users to keep their credentials fresh and secure.
 
 ---
 
-## 🗂 Project Structure
+## 🎯 What I Thought and What I Did
 
+### 💡 What I Thought
+- I wanted to create a system that automatically sends **reminder emails** to users to change their passwords after a set interval.
+- Users should be able to confirm that they have changed their passwords easily.
+- The system should be simple to deploy and user-friendly.
+
+### 🛠️ What I Did
+- Developed a **full-stack web application** with a MySQL database backend.
+- Implemented **automated email reminders** using Spring Boot's mail service.
+- Created a **"Mark as Changed"** feature so users can confirm when they have updated their passwords.
+- Designed the system to update the database and recalculate the next reminder date once a user confirms.
+
+---
+
+## ⚡ Tech Stack
+
+- **Backend:** Spring Boot (Java)
+- **Frontend:** HTML, CSS, JavaScript (Thymeleaf or React if applicable)
+- **Database:** MySQL (Hosted on FreeSQLDatabase.com)
+- **Email Service:** Spring Mail (SMTP)
+- **Deployment:** Render (Frontend + Backend), FreeSQLDatabase.com (Database)
+
+---
+
+## 📝 Features
+
+- Automated password reminder emails.
+- Secure database for storing user credentials and reminder schedules.
+- One-click confirmation ("Mark as Changed") to reset the reminder cycle.
+- Timezone-aware scheduling (Asia/Kolkata).
+- Easy to set up and deploy.
+
+---
+
+## 🚀 Running the Project Locally
+
+### 1️⃣ Prerequisites
+- Install **Java 17+**
+- Install **Maven**
+- Install **MySQL** locally or have access to a remote MySQL database
+- Install **Git**
+
+### 2️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/password-reminder-service.git
+cd password-reminder-service
 ```
-password-reminder-service/
-├── src/                     # Spring Boot backend source
-├── frontend_clean_ui/       # React frontend source
-├── pom.xml                  # Maven config
-├── .gitignore
-└── README.md                # ← You're here
+
+### 3️⃣ Configure the Database
+Update the `src/main/resources/application.properties` file with your local database details:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/passwordreminder
+spring.datasource.username=your_mysql_username
+spring.datasource.password=your_mysql_password
+spring.jpa.hibernate.ddl-auto=update
 ```
 
----
+### 4️⃣ Build and Run the Application
+```bash
+mvn clean install
+mvn spring-boot:run
+```
 
-## 🚀 Getting Started
-
-### ✅ Prerequisites
-
-- Java 17+
-- Maven
-- Node.js + npm
-- MySQL (or MariaDB)
-
----
-
-### 🛠 Backend Setup (Spring Boot)
-
-1. **Set up MySQL**:
-   ```sql
-   CREATE DATABASE passwordreminderdb;
-   ```
-
-2. **Update `application.properties`:**
-   ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/passwordreminderdb
-   spring.datasource.username=yourUsername
-   spring.datasource.password=yourPassword
-   ```
-
-3. **Run backend**:
-   ```bash
-   cd password-reminder-service
-   ./mvnw spring-boot:run
-   ```
-
-   > Server will start at: `http://localhost:8080`
+### 5️⃣ Access the Application
+- Open your browser and go to: **http://localhost:8080**
+- Use the UI to add users and test the reminder service.
 
 ---
 
-### 💻 Frontend Setup (React)
+## 🌍 Live Demo
 
-1. Navigate to the frontend folder:
-   ```bash
-   cd frontend_clean_ui
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Run the React app:
-   ```bash
-   npm run dev
-   ```
-
-   > App will be live at: `http://localhost:5173`
+You can view the live deployed version here:  
+👉 **[Live Project Link](https://password-reminder-service-1.onrender.com)**
 
 ---
 
-## ✨ Features
-
-- Register/Login with email & password
-- Add/Edit/Delete reminders for password change
-- Email alerts one day before password is due
-- JWT-based secured API
-- Upcoming reminders view
-- Mark reminders as changed
-- Fully responsive UI
-
----
-
-## 🔒 Tech Stack
-
-| Layer      | Technology             |
-|------------|------------------------|
-| Frontend   | React, Axios, Vite     |
-| Backend    | Spring Boot, Spring Security |
-| Database   | MySQL         |
-| Auth       | JWT                    |
-| Email      | Spring Mail (SMTP)     |
-
----
-
-
-## 📬 Author
-
-Made with ❤️ by [Raman Thatte](https://www.linkedin.com/in/raman-thatte-10071522b/)
+## 📧 Future Improvements
+- Replace manual "Mark as Changed" with a one-click confirmation directly from email.
+- Add AI-powered password suggestions based on user preferences.
+- Add analytics and improved UI for better user experience.
