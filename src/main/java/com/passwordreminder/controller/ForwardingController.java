@@ -4,10 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class ForwardingController{
+public class ForwardingController {
 
-    @RequestMapping(value = "/{path:^(?!api|static|assets|css|js|images|favicon\\.ico).*}/**")
-    public String forwardReactRoutes() {
+    @RequestMapping(value = { "/", "/{path:^(?!api$).*$}", "/**/{path:^(?!api$).*$}" })
+    public String forward() {
         return "forward:/index.html";
     }
 }
+
